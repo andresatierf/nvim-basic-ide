@@ -15,6 +15,10 @@ nvim_tree.setup {
     enable = true,
     update_cwd = true,
   },
+  git = {
+    enable = false,
+    ignore = false,
+  },
   renderer = {
     root_folder_modifier = ":t",
     icons = {

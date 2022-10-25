@@ -61,6 +61,7 @@ return packer.startup(function(use)
 		requires = { "nvim-lua/plenary.nvim" },
 		commit = "19419f2f303858cea6e1d8d5ddd4ce380c6884c7",
 	})
+  use {"gpanders/editorconfig.nvim", commit = "7d10fe6bc340fd783c0b61cf627dd235100284db"}
 
 	-- Colorschemes
 	use({ "folke/tokyonight.nvim", commit = "8223c970677e4d88c9b6b6d81bda23daf11062bb" })

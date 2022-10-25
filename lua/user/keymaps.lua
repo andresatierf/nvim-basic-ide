@@ -37,7 +37,7 @@ keymap("n", "<S-h>", ":bprevious<CR>", opts)
 keymap("n", "<S-q>", "<cmd>Bdelete!<CR>", opts)
 
 -- Refresh buffers
-keymap("n", "<S-r>", ":e", opts)
+keymap("n", "<S-r>", ":e<CR>", opts)
 
 -- Clear highlights
 keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)

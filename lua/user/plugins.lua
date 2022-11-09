@@ -63,6 +63,7 @@ return packer.startup(function(use)
 	})
 	use({ "gpanders/editorconfig.nvim", commit = "7d10fe6bc340fd783c0b61cf627dd235100284db" })
 	use({ "folke/which-key.nvim", commit = "61553aeb3d5ca8c11eea8be6eadf478062982ac9" })
+	use({ "williamboman/mason.nvim", commit = "45714c54fb61a61c74724f64ca3f728c30ae01d2" })
 
 	-- Colorschemes
 	use({ "folke/tokyonight.nvim", commit = "8223c970677e4d88c9b6b6d81bda23daf11062bb" })

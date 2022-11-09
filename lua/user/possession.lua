@@ -3,13 +3,8 @@ if not status_ok then
 	return
 end
 
-local status_ok, Path = pcall(require, "plenary.path")
-if not status_ok then
-  return
-end
-
 possession.setup({
-	session_dir = (Path:new(vim.fn.stdpath("data")) / "possession"):absolute(),
+	session_dir = vim.fn.stdpath("data") .. "possession",
 	silent = false,
 	load_silent = true,
 	debug = false,

@@ -63,11 +63,17 @@ return packer.startup(function(use)
 	})
 	use({ "gpanders/editorconfig.nvim", commit = "7d10fe6bc340fd783c0b61cf627dd235100284db" })
 	use({ "folke/which-key.nvim", commit = "61553aeb3d5ca8c11eea8be6eadf478062982ac9" })
+	-- Work
+	use({
+		"elianiva/asciidoclive.nvim",
+        commit = "d591c0f3b87a97b0bac0b151c987df0fb89ee260",
+		run = "cd ./app && npm ci", -- install node dependencies
+	})
 
 	-- Colorschemes
 	use({ "folke/tokyonight.nvim", commit = "8223c970677e4d88c9b6b6d81bda23daf11062bb" })
 	use({ "lunarvim/darkplus.nvim", commit = "2584cdeefc078351a79073322eb7f14d7fbb1835" })
-	use({"navarasu/onedark.nvim", commit = "cad3d983e57f467ba8e8252b0567e96dde9a8f0d"})
+	use({ "navarasu/onedark.nvim", commit = "cad3d983e57f467ba8e8252b0567e96dde9a8f0d" })
 
 	-- cmp plugins
 	use({ "hrsh7th/nvim-cmp", commit = "df6734aa018d6feb4d76ba6bda94b1aeac2b378a" }) -- The completion plugin

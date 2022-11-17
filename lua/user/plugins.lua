@@ -63,12 +63,6 @@ return packer.startup(function(use)
 	})
 	use({ "gpanders/editorconfig.nvim", commit = "7d10fe6bc340fd783c0b61cf627dd235100284db" })
 	use({ "folke/which-key.nvim", commit = "61553aeb3d5ca8c11eea8be6eadf478062982ac9" })
-	-- Work
-	use({
-		"elianiva/asciidoclive.nvim",
-        commit = "d591c0f3b87a97b0bac0b151c987df0fb89ee260",
-		run = "cd ./app && npm ci", -- install node dependencies
-	})
 
 	-- Colorschemes
 	use({ "folke/tokyonight.nvim", commit = "8223c970677e4d88c9b6b6d81bda23daf11062bb" })

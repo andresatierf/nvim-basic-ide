@@ -78,24 +78,159 @@ local setup = {
 
 local opts = {
 	mode = "n", -- NORMAL mode
-	prefix = "<leader>",
+	prefix = "",
 	buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
 	silent = true, -- use `silent` when creating keymaps
 	noremap = true, -- use `noremap` when creating keymaps
 	nowait = true, -- use `nowait` when creating keymaps
 }
 
-local mappings = {}
+local mappings = {
+  -- Windows
+  --  Better window navigation
+	["<C-h>"] = { "<C-w>h", "Go to left window" },
+	["<C-j>"] = { "<C-w>j", "Go to down window" },
+	["<C-k>"] = { "<C-w>k", "Go to up window" },
+	["<C-l>"] = { "<C-w>l", "Go to right window" },
+  -- Resize with arrows
+	["<C-Left>"]  = { ":vertical resize -2<CR>", "Resize terminal left" },
+	["<C-Down>"]  = { ":resize +2<CR>",          "Resize terminal down" },
+	["<C-Up>"]    = { ":resize -2<CR>",          "Resize terminal up" },
+	["<C-Right>"] = { ":vertical resize +2<CR>", "Resize terminal right" },
+  -- Buffers
+  -- Better buffer navigation
+	["<S-l>"] = { ":bnext<CR>",     "Go to buffer to the right" },
+	["<S-h>"] = { ":bprevious<CR>", "Go to buffer to the left" },
+  -- Utils
+	["<S-q>"] = { ":Bdelete!<CR>", "Close buffer" },
+	["<S-r>"] = { ":e<CR>",        "Reload buffer" },
+
+  --
+	["<C-\\>"] = { "Open Terminal" },
+	g = {
+		name = "LSP goto",
+		D = { "Goto declaration" },
+		d = { "Goto definitions" },
+		I = { "Goto implementation" },
+		r = { "Goto references" },
+		l = { "Open float" },
+	},
+	K = { "Hover" },
+	["<leader>"] = {
+    name = "Leader",
+		h = { ":nohlsearch<CR>",                                               "Clear highlight" },
+		e = { ":NvimTreeToggle<CR>",                                           "Toggle NvimTree" },
+		r = { ":NvimTreeRefresh<CR>",                                          "Refresh NvimTree" },
+		["/"] = { ":lua require('Comment.api').toggle_current_linewise()<CR>", "Toggle line comment" },
+		d = {
+			name = "DAP",
+			b = { ":lua require('dap').toggle_breakpoint()<cr>", "Toggle breakpoint" },
+			c = { ":lua require('dap').continue()<cr>",          "Continue" },
+			i = { ":lua require('dap').step_into()<cr>",         "Step into" },
+			o = { ":lua require('dap').step_over()<cr>",         "Step over" },
+			O = { ":lua require('dap').step_out()<cr>",          "Step out" },
+			r = { ":lua require('dap').repl.toggle()<cr>",       "Toggle repl" },
+			l = { ":lua require('dap').run_last()<cr>",          "Run last" },
+			u = { ":lua require('dapui').toggle()<cr>",          "Toggle DAP UI" },
+			t = { ":lua require('dap').terminate()<cr>",         "Terminate" },
+		},
+		f = {
+			name = "Telescope",
+			f = { ":Telescope find_files<CR>",      "Find files" },
+			t = { ":Telescope live_grep<CR>",       "Find text" },
+			p = { ":Telescope projects<CR>",        "Find projects" },
+			b = { ":Telescope buffers<CR>",         "Find buffers" },
+			s = { ":Telescope possession list<CR>", "Find sessions" },
+		},
+		g = {
+			name = "Git",
+			g = { ":lua _LAZYGIT_TOGGLE()<CR>", "Toggle lazygit" },
+			I = {
+				name = "Issues",
+				l = { ":Octo issue list states=OPEN<CR>", "List Issues" },
+				c = { ":Octo issue create<CR>",           "Create Issue" },
+				o = { ":Octo issue reopen<CR>",           "Re-open Issue" },
+				x = { ":Octo issue close<CR>",            "Close Issue" },
+				s = { ":Octo issue search<CR>",           "Search Issues" },
+				b = { ":Octo issue browser<CR>",          "Open in browser" },
+				y = { ":Octo issue url<CR>",              "Copy issue URL" },
+			},
+			P = {
+				name = "Pull Requests",
+				l = { ":Octo pr list states=OPEN<CR>", "List Pull Requests" },
+				c = { ":Octo pr create<CR>",           "Create Pull Request" },
+				o = { ":Octo pr reopen<CR>",           "Re-open Pull Request" },
+				x = { ":Octo pr close<CR>",            "Close Pull Request" },
+				s = { ":Octo pr search<CR>",           "Search Pull Request" },
+				b = { ":Octo pr browser<CR>",          "Open in browser" },
+				y = { ":Octo pr url<CR>",              "Copy issue URL" },
+			},
+		},
+		l = {
+			name = "LSP",
+			f = { "Format code" },
+			i = { "Lsp info" },
+			I = { "Lsp install info" },
+			a = { "Code action" },
+			j = { "Goto next" },
+			k = { "Goto previous" },
+			r = { "Rename" },
+			s = { "Signature help" },
+			q = { "Set loc list" },
+		},
+	},
+}
 
 local vopts = {
 	mode = "v", -- VISUAL mode
-	prefix = "<leader>",
+	prefix = "",
 	buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
 	silent = true, -- use `silent` when creating keymaps
 	noremap = true, -- use `noremap` when creating keymaps
 	nowait = true, -- use `nowait` when creating keymaps
 }
 
-local vmappings = {}
+local vmappings = {
+  -- Better paste
+  p = { '"_dP', "which_key_ignore" },
+  -- Stay in indent mode
+  ["<"] = { "<gv", "which_key_ignore" },
+  [">"] = { ">gv", "which_key_ignore" },
+}
+
+
+local iopts = {
+	mode = "i", -- INSERT mode
+	prefix = "",
+	buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
+	silent = true, -- use `silent` when creating keymaps
+	noremap = true, -- use `noremap` when creating keymaps
+	nowait = true, -- use `nowait` when creating keymaps
+}
+
+local imappings = {
+  -- Press jk fast to enter NORMAL mode
+  ["jk"] = { "<ESC>", "Toggle multiline comment" },
+}
+
+local xopts = {
+	mode = "x", -- VISUAL-BLOCK mode
+	prefix = "",
+	buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
+	silent = true, -- use `silent` when creating keymaps
+	noremap = true, -- use `noremap` when creating keymaps
+	nowait = true, -- use `nowait` when creating keymaps
+}
+
+local xmappings = {
+  ["<leader>"] = {
+	  ["/"] = { '<ESC>:lua require("Comment.api").toggle_linewise_op(vim.fn.visualmode())<CR>', "Toggle multiline comment" },
+  },
+}
 
 whichkey.setup(setup)
+
+whichkey.register(mappings, opts)
+whichkey.register(vmappings, vopts)
+whichkey.register(imappings, iopts)
+whichkey.register(xmappings, xopts)

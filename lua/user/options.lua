@@ -39,7 +39,7 @@ local options = {
 }
 
 vim.opt.fillchars.eob = " "
-vim.opt.shortmess:append "c"
+vim.opt.shortmess:append("c")
 vim.opt.whichwrap:append("<,>,[,],h,l")
 vim.opt.iskeyword:append("-")
 

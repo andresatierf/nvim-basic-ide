@@ -70,7 +70,7 @@ return packer.startup(function(use)
 			"nvim-telescope/telescope.nvim",
 			"kyazdani42/nvim-web-devicons",
 		},
-        commit = "b75630f93822a569f3fc2360bb2066ec1b205bd0"
+		commit = "b75630f93822a569f3fc2360bb2066ec1b205bd0",
 	})
 
 	-- Colorschemes

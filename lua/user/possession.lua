@@ -1,5 +1,5 @@
-local status_ok, possession = pcall(require, "possession")
-if not status_ok then
+local possession_status_ok, possession = pcall(require, "possession")
+if not possession_status_ok then
 	return
 end
 
@@ -59,8 +59,8 @@ possession.setup({
 	},
 })
 
-local status_ok, telescope = pcall(require, "telescope")
-if not status_ok then
+local telescope_status_ok, telescope = pcall(require, "telescope")
+if not telescope_status_ok then
 	return
 end
 

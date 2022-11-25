@@ -8,6 +8,13 @@ if not snip_status_ok then
 	return
 end
 
+local git_status_ok, git = pcall(require, "cmp_git")
+if not git_status_ok then
+  return
+end
+
+git.setup()
+
 require("luasnip/loaders/from_vscode").lazy_load()
 
 local check_backspace = function()
@@ -69,7 +76,7 @@ cmp.setup({
 			elseif luasnip.expandable() then
 				luasnip.expand()
 			elseif luasnip.expand_or_jumpable() then
-				luasnip.expand_or_jump()
+				luasnip.e:wxpand_or_jumpxpand_or_jump()
 			elseif check_backspace() then
 				fallback()
 			else
@@ -103,6 +110,7 @@ cmp.setup({
 				buffer = "",
 				path = "",
 				emoji = "",
+				git = "",
 			})[entry.source.name]
 			return vim_item
 		end,
@@ -113,6 +121,7 @@ cmp.setup({
 		{ name = "luasnip" },
 		{ name = "buffer" },
 		{ name = "path" },
+		{ name = "git" },
 	},
 	confirm_opts = {
 		behavior = cmp.ConfirmBehavior.Replace,

@@ -145,6 +145,8 @@ local mappings = {
 		g = {
 			name = "Git",
 			g = { ":lua _LAZYGIT_TOGGLE()<CR>", "Toggle lazygit" },
+      r = { ":Gitsigns reset_hunk", "Reset hunk" },
+      R = { ":Gitsigns reset_buffer", "Reset buffer" },
 			I = {
 				name = "Issues",
 				l = { ":Octo issue list states=OPEN<CR>", "List Issues" },

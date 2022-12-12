@@ -3,12 +3,13 @@ if not status_ok then
   return
 end
 
-bufferline.setup {
+bufferline.setup({
   options = {
     close_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
     right_mouse_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
     offsets = { { filetype = "NvimTree", text = "", padding = 1 } },
-    separator_style = "thin", -- | "thick" | "thin" | { 'any', 'any' },
+    separator_style = "thin", -- "slant" | "thick" | "thin" | { 'any', 'any' },
+    show_tab_indicators = true,
   },
   highlights = {
     fill = {
@@ -89,4 +90,4 @@ bufferline.setup {
       guibg = { attribute = "bg", highlight = "Normal" },
     },
   },
-}
+})

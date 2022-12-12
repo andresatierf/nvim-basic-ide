@@ -46,3 +46,7 @@ vim.opt.iskeyword:append("-")
 for k,v in pairs(options) do
   vim.opt[k] = v
 end
+
+vim.api.nvim_exec([[
+set sessionoptions+=globals
+]], true)

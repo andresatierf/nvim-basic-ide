@@ -110,9 +110,8 @@ local mappings = {
   -- Better code navigation
 	["<C-d>"] = { "<C-d>zz", "Navigate down half page" },
 	["<C-u>"] = { "<C-u>zz", "Navigate up half page" },
-  n         = { "nzz",     "Next match" },
-  N         = { "Nzz",     "Previous match" },
-
+  n         = { "nzzzv",   "Next match" },
+  N         = { "Nzzzv",   "Previous match" },
 
   --
 	["<C-\\>"] = { "Open Terminal" },
@@ -128,6 +127,11 @@ local mappings = {
 
 	["<leader>"] = {
     name = "Leader",
+    -- Register/Clipboard
+    y = { "\"+y", "which_key_ignore" },
+    d = { "\"+d", "which_key_ignore" },
+    p = { "\"+p", "which_key_ignore" },
+
 		h = { ":nohlsearch<CR>",                                               "Clear highlight" },
 		e = { ":NvimTreeToggle<CR>",                                           "Toggle NvimTree" },
 		r = { ":NvimTreeRefresh<CR>",                                          "Refresh NvimTree" },
@@ -173,7 +177,7 @@ local mappings = {
         end,
         "Aligns motion to a Lua pattern, looking left and with previews" },
     },
-		d = {
+		b = {
 			name = "DAP",
 			b = { ":lua require('dap').toggle_breakpoint()<cr>", "Toggle breakpoint" },
 			c = { ":lua require('dap').continue()<cr>",          "Continue" },
@@ -236,11 +240,18 @@ local vopts = {
 }
 
 local vmappings = {
-  -- Better paste
-  p =     { '"_dP', "which_key_ignore" },
+	["<leader>"] = {
+    name = "Leader",
+    -- Register/Clipboard
+    y = { "\"+y",  "which_key_ignore" },
+    d = { "\"+d",  "which_key_ignore" },
+  },
   -- Stay in indent mode
   ["<"] = { "<gv",  "which_key_ignore" },
   [">"] = { ">gv",  "which_key_ignore" },
+  -- Move lines
+  J = { ":m '>+1<CR>gv=gv", "which_key_ignore" },
+  K = { ":m '<-2<CR>gv=gv", "which_key_ignore" },
 }
 
 
@@ -269,6 +280,7 @@ local xopts = {
 
 local xmappings = {
   ["<leader>"] = {
+    p = { "\"_dP", "which_key_ignore" },
 	  ["/"] = { "<ESC>:lua require('Comment.api').toggle_linewise_op(vim.fn.visualmode())<CR>", "Toggle multiline comment" },
     a = {
       name = "Align",
@@ -289,7 +301,7 @@ whichkey.register(xmappings, xopts)
 
 -- Set keybinds in octo pages
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "octo" },
+  pattern = { "octo", "octo_panel", "diff" },
   callback = function()
     local octoopts = {
       mode    = "n",  -- NORMAL mode
@@ -313,8 +325,8 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
           y = { ":lua require('octo.mappings').copy_url()<CR>",        "Copy issue URL" },
           g = {
             name = "Goto",
-            f = { ":lua require('octo.mappings).goto_file()<CR>",      "Go to file" },
-            i = { ":lua require('octo.mappings).goto_issue()<CR>",     "Go to issue" },
+            f = { ":lua require('octo.mappings').goto_file()<CR>",      "Go to file" },
+            i = { ":lua require('octo.mappings').goto_issue()<CR>",     "Go to issue" },
           },
         },
         p = {
@@ -342,7 +354,14 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
         },
         r = {
           name = "Review",
-          c = { ":lua require('octo.mappings').close_review_tab()<CR>", "Close review tab" },
+          o =     { ":Octo review start<CR>",                                    "Start review" },
+          O =     { ":Octo review resume<CR>",                                   "Resume review" },
+          d =     { ":Octo review discard<CR>",                                  "Discard review" },
+          x =     { ":lua require('octo.mappings').close_review_tab()<CR>",      "Close review tab" },
+          ['['] = { ":lua require('octo.mappings').select_next_entry()<CR>",     "Previous changed File" },
+          [']'] = { ":lua require('octo.mappings').select_prev_entry()<CR>",     "Next changed File" },
+          c =     { ":lua require('octo.mappings').add_review_comment()<CR>",    "Add a review comment" },
+          s =     { ":lua require('octo.mappings').add_review_suggestion()<CR>", "Add a review suggestion" },
           g = {
             name = "Goto",
             i = { ":lua require('octo.mappings').goto_issue()<CR>",     "Go to issue" },
@@ -366,14 +385,14 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
         },
         c = {
           name = "Comments",
-          -- Comments/Sugestions
+          -- Comments/Suggestions
           a =     { ":lua require('octo.mappings').add_comment()<CR>",       "Add comment" },
-          s =     { ":lua require('octo.mappings').add_sugestion()<CR>",     "Add sugestion" },
+          s =     { ":lua require('octo.mappings').add_suggestion()<CR>",    "Add suggestion" },
           d =     { ":lua require('octo.mappings').delete_comment()<CR>",    "Delete comment" },
           n =     { ":lua require('octo.mappings').next_comment()<CR>",      "Next comment" },
           N =     { ":lua require('octo.mappings').prev_comment()<CR>",      "Previous comment" },
           -- Reactions
-          p =     { ":lua require('octo.mappings').react_horray()<CR>",      "Add/remove 🎉 reaction" },
+          p =     { ":lua require('octo.mappings').react_hooray()<CR>",      "Add/remove 🎉 reaction" },
           h =     { ":lua require('octo.mappings').react_heart()<CR>",       "Add/remove ❤️  reaction" },
           e =     { ":lua require('octo.mappings').react_eyes()<CR>",        "Add/remove 👀 reaction" },
           ["+"] = { ":lua require('octo.mappings').react_thumbs_up()<CR>",   "Add/remove 👍 reaction" },
@@ -392,22 +411,15 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
         -- },
         -- pull_request = { -- DONE
         -- },
-        -- review_thread = {
-        --   select_next_entry = { lhs = "]q", desc = "move to previous changed file" },
-        --   select_prev_entry = { lhs = "[q", desc = "move to next changed file" },
+        -- review_thread = { -- DONE
         -- },
         -- submit_win = { -- DONE
         -- },
         -- review_diff = {
-        --   add_review_comment = { lhs = "<space>ca", desc = "add a new review comment" },
-        --   add_review_suggestion = { lhs = "<space>sa", desc = "add a new review suggestion" },
         --   focus_files = { lhs = "<leader>e", desc = "move focus to changed file panel" },
         --   toggle_files = { lhs = "<leader>b", desc = "hide/show changed files panel" },
         --   next_thread = { lhs = "]t", desc = "move to next thread" },
         --   prev_thread = { lhs = "[t", desc = "move to previous thread" },
-        --   select_next_entry = { lhs = "]q", desc = "move to previous changed file" },
-        --   select_prev_entry = { lhs = "[q", desc = "move to next changed file" },
-        --   close_review_tab = { lhs = "<C-c>", desc = "close review tab" },
         --   toggle_viewed = { lhs = "<leader><space>", desc = "toggle viewer viewed state" },
         -- },
         -- file_panel = {
@@ -417,9 +429,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
         --   refresh_files = { lhs = "R", desc = "refresh changed files panel" },
         --   focus_files = { lhs = "<leader>e", desc = "move focus to changed file panel" },
         --   toggle_files = { lhs = "<leader>b", desc = "hide/show changed files panel" },
-        --   select_next_entry = { lhs = "]q", desc = "move to previous changed file" },
-        --   select_prev_entry = { lhs = "[q", desc = "move to next changed file" },
-        --   close_review_tab = { lhs = "<C-c>", desc = "close review tab" },
         --   toggle_viewed = { lhs = "<leader><space>", desc = "toggle viewer viewed state" },
         -- }
       },

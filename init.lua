@@ -1,26 +1,40 @@
+require("user.impatient")
+-- Vim options
 require("user.options")
+
+-- Setup and install
+require("user.plugins")
 require("user.keymaps")
 require("user.whichkey")
-require("user.plugins")
 require("user.autocommands")
-require("user.colorscheme")
-require("user.cmp")
-require("user.telescope")
-require("user.treesitter")
-require("user.autopairs")
-require("user.comment")
+
+-- Git
 require("user.gitsigns")
-require("user.nvim-tree")
+require("user.octo")
+
+-- UI/UX
 require("user.bufferline")
 require("user.lualine")
+require("user.nvim-tree")
+
+require("user.possession")
+require("user.alpha")
+
+require("user.telescope")
 require("user.toggleterm")
 require("user.project")
-require("user.impatient")
+
 require("user.illuminate")
 require("user.indentline")
-require("user.alpha")
+require("user.autopairs")
+require("user.comment")
+
+-- Appeareance
+require("user.colorscheme")
+
+-- LSP/DAP/Completion
+require("user.treesitter")
 require("user.lsp")
 require("user.dap")
-require("user.possession")
-require("user.mason")
-require("user.octo")
+require("user.cmp")
+
